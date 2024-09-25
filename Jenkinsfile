@@ -41,7 +41,7 @@ pipeline {
                 withAWS(credentials: 'aws-creds', region: 'us-east-1') {
                     script {    
                         if (params.Terraform_Action == 'plan') {
-                            sh "terraform -chdir=eks/ plan -var-file=${params.Environment}.tfvars"
+                            sh "terraform -chdir=eks/ plan -var-file=${params.Environment}.tfvars --lock=false"
                         }   else if (params.Terraform_Action == 'apply') {
                             sh "terraform -chdir=eks/ apply -var-file=${params.Environment}.tfvars -auto-approve"
                         }   else if (params.Terraform_Action == 'destroy') {
